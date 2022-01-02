@@ -524,9 +524,9 @@ static void spitz_bl_kick_battery(void)
 static struct gpiod_lookup_table spitz_lcdcon_gpio_table = {
 	.dev_id = "spi2.1",
 	.table = {
-		GPIO_LOOKUP("gpio-pxa", SPITZ_GPIO_BACKLIGHT_CONT,
+		GPIO_LOOKUP("sharp-scoop.1", SPITZ_GPIO_BACKLIGHT_CONT,
 			    "BL_CONT", GPIO_ACTIVE_LOW),
-		GPIO_LOOKUP("gpio-pxa", SPITZ_GPIO_BACKLIGHT_ON,
+		GPIO_LOOKUP("sharp-scoop.1", SPITZ_GPIO_BACKLIGHT_ON,
 			    "BL_ON", GPIO_ACTIVE_HIGH),
 		{ },
 	},
@@ -535,9 +535,9 @@ static struct gpiod_lookup_table spitz_lcdcon_gpio_table = {
 static struct gpiod_lookup_table akita_lcdcon_gpio_table = {
 	.dev_id = "spi2.1",
 	.table = {
-		GPIO_LOOKUP("gpio-pxa", AKITA_GPIO_BACKLIGHT_CONT,
+		GPIO_LOOKUP("0-0018", AKITA_GPIO_BACKLIGHT_CONT,
 			    "BL_CONT", GPIO_ACTIVE_LOW),
-		GPIO_LOOKUP("gpio-pxa", AKITA_GPIO_BACKLIGHT_ON,
+		GPIO_LOOKUP("0-0018", AKITA_GPIO_BACKLIGHT_ON,
 			    "BL_ON", GPIO_ACTIVE_HIGH),
 		{ },
 	},
