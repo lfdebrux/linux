@@ -204,7 +204,7 @@ static void __maybe_unused spitz_card_pwr_ctrl(uint8_t enable, uint8_t new_cpr)
 	unsigned long flags;
 
 	if (new_cpr & 0x7) {
-		gpio_set_value(SPITZ_GPIO_CF_POWER, 1);
+		gpio_set_value(SPITZ_SCP_GPIO_BASE + SPITZ_GPIO_CF_POWER, 1);
 		mdelay(5);
 	}
 
@@ -223,7 +223,7 @@ static void __maybe_unused spitz_card_pwr_ctrl(uint8_t enable, uint8_t new_cpr)
 
 	if (!(cpr & 0x7)) {
 		mdelay(1);
-		gpio_set_value(SPITZ_GPIO_CF_POWER, 0);
+		gpio_set_value(SPITZ_SCP_GPIO_BASE + SPITZ_GPIO_CF_POWER, 0);
 	}
 }
 
@@ -457,12 +457,12 @@ static struct gpio_led spitz_gpio_leds[] = {
 	{
 		.name			= "spitz:amber:charge",
 		.default_trigger	= "sharpsl-charge",
-		.gpio			= SPITZ_GPIO_LED_ORANGE,
+		.gpio			= SPITZ_SCP_GPIO_BASE + SPITZ_GPIO_LED_ORANGE,
 	},
 	{
 		.name			= "spitz:green:hddactivity",
 		.default_trigger	= "disk-activity",
-		.gpio			= SPITZ_GPIO_LED_GREEN,
+		.gpio			= SPITZ_SCP_GPIO_BASE + SPITZ_GPIO_LED_GREEN,
 	},
 };
 
@@ -965,9 +965,9 @@ static inline void spitz_i2c_init(void) {}
 static struct gpiod_lookup_table spitz_audio_gpio_table = {
 	.dev_id = "spitz-audio",
 	.table = {
-		GPIO_LOOKUP("sharp-scoop.0", SPITZ_GPIO_MUTE_L - SPITZ_SCP_GPIO_BASE,
+		GPIO_LOOKUP("sharp-scoop.0", SPITZ_GPIO_MUTE_L,
 			    "mute-l", GPIO_ACTIVE_HIGH),
-		GPIO_LOOKUP("sharp-scoop.0", SPITZ_GPIO_MUTE_R - SPITZ_SCP_GPIO_BASE,
+		GPIO_LOOKUP("sharp-scoop.0", SPITZ_GPIO_MUTE_R,
 			    "mute-r", GPIO_ACTIVE_HIGH),
 		GPIO_LOOKUP("sharp-scoop.1", SPITZ_GPIO_MIC_BIAS,
 			    "mic", GPIO_ACTIVE_HIGH),
@@ -978,9 +978,9 @@ static struct gpiod_lookup_table spitz_audio_gpio_table = {
 static struct gpiod_lookup_table akita_audio_gpio_table = {
 	.dev_id = "spitz-audio",
 	.table = {
-		GPIO_LOOKUP("sharp-scoop.0", SPITZ_GPIO_MUTE_L - SPITZ_SCP_GPIO_BASE,
+		GPIO_LOOKUP("sharp-scoop.0", SPITZ_GPIO_MUTE_L,
 			    "mute-l", GPIO_ACTIVE_HIGH),
-		GPIO_LOOKUP("sharp-scoop.0", SPITZ_GPIO_MUTE_R - SPITZ_SCP_GPIO_BASE,
+		GPIO_LOOKUP("sharp-scoop.0", SPITZ_GPIO_MUTE_R,
 			    "mute-r", GPIO_ACTIVE_HIGH),
 		GPIO_LOOKUP("0-0018", AKITA_GPIO_MIC_BIAS,
 			    "mic", GPIO_ACTIVE_HIGH),
