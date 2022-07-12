@@ -38,9 +38,9 @@ static struct gpio spitz_charger_gpios[] = {
 	{ SPITZ_GPIO_KEY_INT,	GPIOF_IN, "Keyboard Interrupt" },
 	{ SPITZ_GPIO_SYNC,	GPIOF_IN, "Sync" },
 	{ SPITZ_GPIO_AC_IN,     GPIOF_IN, "Charger Detection" },
-	{ SPITZ_GPIO_ADC_TEMP_ON, GPIOF_OUT_INIT_LOW, "ADC Temp On" },
-	{ SPITZ_GPIO_JK_B,	  GPIOF_OUT_INIT_LOW, "JK B" },
-	{ SPITZ_GPIO_CHRG_ON,	  GPIOF_OUT_INIT_LOW, "Charger On" },
+	{ SPITZ_SCP_GPIO_BASE + SPITZ_GPIO_ADC_TEMP_ON, GPIOF_OUT_INIT_LOW, "ADC Temp On" },
+	{ SPITZ_SCP_GPIO_BASE + SPITZ_GPIO_JK_B,	  GPIOF_OUT_INIT_LOW, "JK B" },
+	{ SPITZ_SCP_GPIO_BASE + SPITZ_GPIO_CHRG_ON,	  GPIOF_OUT_INIT_LOW, "Charger On" },
 };
 
 static void spitz_charger_init(void)
@@ -50,35 +50,35 @@ static void spitz_charger_init(void)
 
 static void spitz_measure_temp(int on)
 {
-	gpio_set_value(SPITZ_GPIO_ADC_TEMP_ON, on);
+	gpio_set_value(SPITZ_SCP_GPIO_BASE + SPITZ_GPIO_ADC_TEMP_ON, on);
 }
 
 static void spitz_charge(int on)
 {
 	if (on) {
 		if (sharpsl_pm.flags & SHARPSL_SUSPENDED) {
-			gpio_set_value(SPITZ_GPIO_JK_B, 1);
-			gpio_set_value(SPITZ_GPIO_CHRG_ON, 0);
+			gpio_set_value(SPITZ_SCP_GPIO_BASE + SPITZ_GPIO_JK_B, 1);
+			gpio_set_value(SPITZ_SCP_GPIO_BASE + SPITZ_GPIO_CHRG_ON, 0);
 		} else {
-			gpio_set_value(SPITZ_GPIO_JK_B, 0);
-			gpio_set_value(SPITZ_GPIO_CHRG_ON, 0);
+			gpio_set_value(SPITZ_SCP_GPIO_BASE + SPITZ_GPIO_JK_B, 0);
+			gpio_set_value(SPITZ_SCP_GPIO_BASE + SPITZ_GPIO_CHRG_ON, 0);
 		}
 	} else {
-		gpio_set_value(SPITZ_GPIO_JK_B, 0);
-		gpio_set_value(SPITZ_GPIO_CHRG_ON, 1);
+		gpio_set_value(SPITZ_SCP_GPIO_BASE + SPITZ_GPIO_JK_B, 0);
+		gpio_set_value(SPITZ_SCP_GPIO_BASE + SPITZ_GPIO_CHRG_ON, 1);
 	}
 }
 
 static void spitz_discharge(int on)
 {
-	gpio_set_value(SPITZ_GPIO_JK_A, on);
+	gpio_set_value(SPITZ_SCP_GPIO_BASE + SPITZ_GPIO_JK_A, on);
 }
 
 /* HACK - For unknown reasons, accurate voltage readings are only made with a load
    on the power bus which the green led on spitz provides */
 static void spitz_discharge1(int on)
 {
-	gpio_set_value(SPITZ_GPIO_LED_GREEN, on);
+	gpio_set_value(SPITZ_SCP_GPIO_BASE + SPITZ_GPIO_LED_GREEN, on);
 }
 
 static unsigned long gpio18_config = GPIO18_GPIO;
