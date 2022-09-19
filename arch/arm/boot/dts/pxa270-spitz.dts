@@ -1,0 +1,31 @@
+// SPDX-License-Identifier: GPL-2.0
+
+/dts-v1/;
+
+#include "pxa27x.dtsi"
+
+/ {
+	model = "Sharp Zaurus SL-C3000 (Spitz)";
+	compatible = "sharp,zaurus-spitz", "marvell,pxa270";
+
+	chosen {
+		stdout-path = &ffuart;
+	};
+
+	memory {
+		device_type = "memory";
+		reg = <0xa0000000 0x4000000>;	/* 64 MiB */
+	};
+};
+
+&ffuart {
+	status = "okay";
+};
+
+&btuart {
+	status = "okay";
+};
+
+&stuart {
+	status = "okay";
+};

@@ -997,6 +997,7 @@ dtb-$(CONFIG_ARCH_ACTIONS) += \
 	owl-s500-roseapplepi.dtb \
 	owl-s500-sparky.dtb
 dtb-$(CONFIG_ARCH_PXA) += \
+	pxa270-spitz.dtb \
 	pxa300-raumfeld-connector.dtb \
 	pxa300-raumfeld-controller.dtb \
 	pxa300-raumfeld-speaker-l.dtb \
